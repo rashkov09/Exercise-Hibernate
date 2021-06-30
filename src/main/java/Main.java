@@ -37,7 +37,15 @@ public class Main {
             case 10:
                 exercise = new IncreaseSalaries();
                 break;
-
+            case 11:
+                exercise = new FindEmployeesByFirstName();
+                break;
+            case 12:
+                exercise = new EmployeesMaximumSalaries();
+                break;
+            case 13:
+                exercise = new RemoveTowns();
+                break;
             default:
                 System.out.println("Wrong exercise number. Please try again.");
                return;

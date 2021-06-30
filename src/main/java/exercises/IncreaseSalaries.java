@@ -22,13 +22,11 @@ public class IncreaseSalaries extends ExerciseImpl {
 
         List<Employee> employees = query.getResultList();
 
-        Query increase = getEm().createQuery( "UPDATE Employee AS e SET e.salary = e.salary*1.12 WHERE e.id = ?1");
-
        employees.forEach(employee -> {
-           increase.setParameter(1,employee.getId());
-           increase.executeUpdate();
+           getEm().detach(employee);
+           employee.setSalary(employee.getSalary().multiply(BigDecimal.valueOf(1.12)));
            getEm().merge(employee);
-           System.out.printf("%s %s ($%.2f)\n",employee.getFirstName(),employee.getLastName(), employee.getSalary().multiply(BigDecimal.valueOf(1.12)));
+           System.out.printf("%s %s ($%.2f)\n",employee.getFirstName(),employee.getLastName(), employee.getSalary());
        });
 
         getEm().getTransaction().commit();

@@ -19,7 +19,7 @@ public class GetEmployeeWithProject extends ExerciseImpl{
         if (employee != null){
             System.out.printf("%s %s - %s\n",employee.getFirstName(),employee.getLastName(),employee.getJobTitle());
             employee.getProjects().stream().sorted(Comparator.comparing(Project::getName)).forEach(p->{
-                System.out.println(p.getName());
+                System.out.println("      "+p.getName());
             });
         }
 

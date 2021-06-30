@@ -11,7 +11,7 @@ public class ContainsEmployee extends ExerciseImpl{
     @Override
     public void run() {
         Scanner sc = new Scanner(System.in);
-
+        System.out.println("Insert first and last name seperated by space:");
         String[] inputFullName = sc.nextLine().split(" ");
 
         getEm().getTransaction().begin();

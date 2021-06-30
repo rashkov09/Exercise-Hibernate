@@ -2,11 +2,8 @@ package exercises;
 
 import entities.Department;
 
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 public class EmployeesMaximumSalaries extends ExerciseImpl{

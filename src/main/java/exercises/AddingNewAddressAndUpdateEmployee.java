@@ -1,3 +1,5 @@
+package exercises;
+
 import entities.Address;
 
 import javax.persistence.EntityManager;
@@ -5,18 +7,18 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.Scanner;
 
-public class AddingNewAddressAndUpdateEmployee {
-    public static void main(String[] args) {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("soft_uni");
-        EntityManager em = factory.createEntityManager();
+public class AddingNewAddressAndUpdateEmployee extends ExerciseImpl {
+
+    @Override
+    public void run() {
         Scanner sc = new Scanner(System.in);
-        em.getTransaction().begin();
+        getEm().getTransaction().begin();
         Address newAddress = new Address();
         newAddress.setText("Vitoshka 15");
-        em.persist(newAddress);
+        getEm().persist(newAddress);
 
         String lastName = sc.nextLine();
-        int result = em.createQuery("UPDATE Employee AS e " +
+        int result = getEm().createQuery("UPDATE Employee AS e " +
                 "SET e.address = ?1" +
                 "WHERE e.lastName = ?2")
                 .setParameter(1,newAddress)
@@ -24,7 +26,7 @@ public class AddingNewAddressAndUpdateEmployee {
                 .executeUpdate();
         System.out.println(result);
 
-        em.getTransaction().commit();
-        em.close();
+        getEm().getTransaction().commit();
+        getEm().close();
     }
 }

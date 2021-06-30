@@ -1,3 +1,5 @@
+package exercises;
+
 import entities.Department;
 import entities.Employee;
 
@@ -7,18 +9,17 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class EmployeesFromDepartment {
-    public static void main(String[] args) {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("soft_uni");
-        EntityManager em = factory.createEntityManager();
+public class EmployeesFromDepartment extends ExerciseImpl {
 
-        em.getTransaction().begin();
+    @Override
+    public void run() {
 
+        getEm().getTransaction().begin();
 
-        TypedQuery<Department> firsQuery = em.createQuery("SELECT d FROM Department AS d WHERE d.name = 'Research and Development'",Department.class);
+        TypedQuery<Department> firsQuery = getEm().createQuery("SELECT d FROM Department AS d WHERE d.name = 'Research and Development'",Department.class);
         Department criteria = firsQuery.getSingleResult();
 
-        TypedQuery<Employee> query = em.createQuery(
+        TypedQuery<Employee> query = getEm().createQuery(
                 "SELECT e FROM Employee AS e " +
                         "WHERE e.department = ?1 " +
                         "ORDER BY e.salary ASC, e.id ASC",Employee.class);
@@ -27,5 +28,7 @@ public class EmployeesFromDepartment {
         result.forEach(e -> {
             System.out.printf("%s %s from %s - $%.2f\n",e.getFirstName(),e.getLastName(),e.getDepartment().getName(),e.getSalary());
         });
+        getEm().getTransaction().commit();
+        getEm().close();
     }
 }
